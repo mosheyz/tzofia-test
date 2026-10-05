@@ -1,0 +1,4 @@
+.env
+node_modules/
+stracture
+package-lock.json
