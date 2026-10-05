@@ -1,4 +1,4 @@
-import { fail } from "../../utils/resFormater.js";
+import { fail } from "../utils/resFormater.js";
 
 export const errorHandler = (err, req, res, next) => {
     const status = err.status || 500;
