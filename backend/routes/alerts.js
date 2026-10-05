@@ -1,3 +1,12 @@
 import express from "express"
+import { createAlert, deleteAlert, getAlertById, getAlerts, updateAlert } from "../controllers/alertsContoller.js"
+import { validateSchema } from "../middleware/validateSchema.js"
+import { createAlertSchema, updateAlertSchema } from "../services/alertSchema.js"
 
 export const router = express.Router()
+
+router.get("/", getAlerts)
+router.get("/:id", getAlertById)
+router.post("/", validateSchema(createAlertSchema), createAlert)
+router.put("/:id", validateSchema(updateAlertSchema), updateAlert)
+router.delete("/:id", deleteAlert)
