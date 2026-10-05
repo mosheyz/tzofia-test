@@ -1,5 +1,4 @@
 import { Link } from "react-router";
-import AddAlert from "./AddAlert";
 import Search from "./Search";
 import Filter from "./Filter";
 

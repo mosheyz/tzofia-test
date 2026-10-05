@@ -5,7 +5,8 @@ const URL = "http://localhost:3001/api/alerts";
 
 export const alertRequests = {
     create: async (alert: CreateAlert) => {
-        console.log(alert)
+        alert.lon = Number(alert.lon);
+        alert.lat = Number(alert.lat);
         const res = await axios.post(URL, alert);
         return res.data.data;
     },
@@ -18,6 +19,8 @@ export const alertRequests = {
         return res.data.data;
     },
     update: async (id: string, alert: Partial<Alert>) => {
+        alert.lon = Number(alert.lon);
+        alert.lat = Number(alert.lat);
         const res = await axios.put(`${URL}/${id}`, alert);
         return res.data.data;
     },

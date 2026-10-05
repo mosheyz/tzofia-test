@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import { useCreateAlert } from "../hooks/useApiRequests";
+import { useUpdateAlert } from "../hooks/useApiRequests";
 import type { Status, Arena, Priority } from "../types/types";
 
-const AddAlert = () => {
-    const { mutate, isPending, isError, error } = useCreateAlert();
-
+const UpdateAlert = () => {
     const [displayName, setDisplayName] = useState("");
     const [description, setDescription] = useState("");
-    const [priority, setPriority] = useState<Priority>("Low");
-    const [arena, setArena] = useState<Arena>("Center");
-    const [status, setStatus] = useState<Status>("Active");
-    let [lon, setLon] = useState(0);
-    let [lat, setLat] = useState(0);
+    const [priority, setPriority] = useState<Priority | "">("");
+    const [arena, setArena] = useState<Arena | "">("");
+    const [status, setStatus] = useState<Status | "">("");
+    const [lon, setLon] = useState(0);
+    const [lat, setLat] = useState(0);
+    const [alertId, setAlertId] = useState("");
+
+    const { mutate, isPending, isError, error } = useUpdateAlert(alertId);
 
     const handleAdd = (e: React.FormEvent) => {
         e.preventDefault();
-        mutate({ displayName, description, priority, arena, status, lat, lon });
+        mutate();
     };
 
     if (isPending) return <div>Creating..</div>;
@@ -27,11 +28,18 @@ const AddAlert = () => {
             <form onSubmit={handleAdd}>
                 <input
                     type="text"
+                    name="alertId"
+                    placeholder="alertId"
+                    value={alertId}
+                    onChange={(e) => setAlertId(e.target.value)}
+                    required
+                />
+                <input
+                    type="text"
                     name="displayName"
                     placeholder="Your name"
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
-                    required
                 />
                 <input
                     type="text"
@@ -39,14 +47,12 @@ const AddAlert = () => {
                     placeholder="Describe the alert.."
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    required
                 />
                 <select
                     name="priority"
                     id="priority"
                     value={priority}
                     onChange={(e: any) => setPriority(e.target.value)}
-                    required
                 >
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
@@ -58,7 +64,6 @@ const AddAlert = () => {
                     id="arena"
                     value={arena}
                     onChange={(e: any) => setArena(e.target.value)}
-                    required
                 >
                     <option value="North">North</option>
                     <option value="South">South</option>
@@ -69,7 +74,6 @@ const AddAlert = () => {
                     id="status"
                     value={status}
                     onChange={(e: any) => setStatus(e.target.value)}
-                    required
                 >
                     <option value="Active">Active</option>
                     <option value="Handled">Handled</option>
@@ -82,7 +86,6 @@ const AddAlert = () => {
                     max={180}
                     value={lon}
                     onChange={(e: any) => setLon(Number(e.target.value))}
-                    required
                 />
                 <input
                     type="number"
@@ -92,7 +95,6 @@ const AddAlert = () => {
                     max={90}
                     value={lat}
                     onChange={(e: any) => setLat(e.target.value)}
-                    required
                 />
                 <button type="submit">Send alert</button>
             </form>
@@ -100,4 +102,4 @@ const AddAlert = () => {
     );
 };
 
-export default AddAlert;
+export default UpdateAlert;
