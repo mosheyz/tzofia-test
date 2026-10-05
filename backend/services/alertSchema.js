@@ -10,4 +10,4 @@ export const createAlertSchema = z.object({
     lon: z.number().min(-180).max(180),
 });
 
-export const updateAlertSchema = createAlertSchema.optional();
+export const updateAlertSchema = createAlertSchema.partial();
