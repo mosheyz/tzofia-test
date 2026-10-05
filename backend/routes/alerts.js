@@ -1,5 +1,5 @@
 import express from "express"
-import { createAlert, deleteAlert, getAlertById, getAlerts, updateAlert } from "../controllers/alertsContoller.js"
+import { createAlert, deleteAlert, getAlertById, getAlerts, updateAlert } from "../controllers/alertsController.js"
 import { validateSchema } from "../middleware/validateSchema.js"
 import { createAlertSchema, updateAlertSchema } from "../services/alertSchema.js"
 
