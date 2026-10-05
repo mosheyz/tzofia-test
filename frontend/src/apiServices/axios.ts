@@ -1,10 +1,11 @@
 import axios from "axios";
-import type { Alert } from "../types/types";
+import type { Alert, CreateAlert } from "../types/types";
 
 const URL = "http://localhost:3001/api/alerts";
 
 export const alertRequests = {
-    create: async (alert: Alert) => {
+    create: async (alert: CreateAlert) => {
+        console.log(alert)
         const res = await axios.post(URL, alert);
         return res.data.data;
     },
