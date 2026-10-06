@@ -17,11 +17,9 @@ export const register = async (req, res) => {
     data.password = hashedPassword;
 
     const newUser = await usersRepo.create(data);
-    delete newUser.password
-    
-    const token = generateToken(newUser);
+    delete newUser.password;
 
-    res.status(201).send(success({ user: newUser, token }));
+    res.status(201).send(success({ user: newUser }));
 };
 
 export const login = async (req, res) => {
@@ -34,7 +32,7 @@ export const login = async (req, res) => {
         throw err;
     }
 
-    const isEqual = bcrypt.compare(data.password, user.password);
+    const isEqual = await bcrypt.compare(data.password, user.password);
     if (!isEqual) {
         const err = new Error("Incorrect email or password");
         err.status = 401;
@@ -42,31 +40,42 @@ export const login = async (req, res) => {
     }
 
     delete user.password;
-    
+
     const token = generateToken(user);
     res.status(200).send(success({ user, token }));
 };
 
 export const getAllUsers = async (req, res) => {
-    const users = await usersRepo.getAll()
+    const users = await usersRepo.getAll();
 
-    res.status(200).send(success(users))
+    res.status(200).send(success(users));
 };
 
 export const getUserById = async (req, res) => {
-    const user = await getUserById(req.user.id)
-    delete user.password
-
-    res.status(200).send(success(user))
-
-};
-
-export const deleteUser = async (req, res) => {
-    const user = await getUserById(req.user.id)
+    const { id } = req.params;
+    const user = await usersRepo.getById(id);
     if (!user) {
         const err = new Error("Incorrect email or password");
         err.status = 404;
         throw err;
     }
-    const result = await usersRepo.delete(user.id)
+
+    delete user.password;
+
+    res.status(200).send(success(user));
+};
+
+export const deleteUser = async (req, res) => {
+    const { id } = req.params;
+
+    const user = await getUserById(id);
+    if (!user) {
+        const err = new Error("Incorrect email or password");
+        err.status = 404;
+        throw err;
+    }
+    const result = await usersRepo.delete(user.id);
+    res.status(200).send(
+        result ? success("deleted successfully") : fail("Something went wrong"),
+    );
 };

@@ -5,12 +5,13 @@ const alerts = dbConnection.collection("alerts");
 
 export const alertsRepo = {
     create: async (data) => {
+        data.createdAt = new Date().toISOString()
         const result = await alerts.insertOne(data);
         return {id: result.insertedId.toString(), ...data}
     },
 
-    getAll: async () => {
-        const data = await alerts.find({}).toArray();
+    getAll: async (filter = {}) => {
+        const data = await alerts.find(filter).toArray();
         return data.map((item) => {
             item.id = item._id.toString();
             return item;

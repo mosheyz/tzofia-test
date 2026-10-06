@@ -3,6 +3,7 @@ import { createAlert, deleteAlert, getAlertById, getAlerts, updateAlert } from "
 import { validateSchema } from "../middleware/validateSchema.js"
 import { createAlertSchema, updateAlertSchema } from "../services/alertSchema.js"
 import { authMiddleware } from "../middleware/authMiddleware.js"
+import { roleMiddleware } from "../middleware/roleMiddleware.js"
 
 export const router = express.Router()
 
