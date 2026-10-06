@@ -1,7 +1,10 @@
-import React from 'react'
+import UpdateAlert from "../components/UpdateAlert";
 
 export const UpdatePage = () => {
-  return (
-    <div>UpdatePage</div>
-  )
-}
+    return (
+        <div>
+            UpdatePage
+            <UpdateAlert />
+        </div>
+    );
+};

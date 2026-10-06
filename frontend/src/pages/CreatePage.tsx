@@ -1,4 +1,3 @@
-import React from "react";
 import AddAlert from "../components/AddAlert";
 
 const CreatePage = () => {

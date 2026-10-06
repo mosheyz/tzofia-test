@@ -6,8 +6,8 @@ interface FilterState {
     arenaFilter: string;
     priorityFilter: string;
     setSearch: (search: string) => void;
-    setArenaFilter: (arena: Arena) => void;
-    setPriorityFilter: (priority: Priority) => void;
+    setArenaFilter: (arena: Arena | "") => void;
+    setPriorityFilter: (priority: Priority | "") => void;
 }
 
 const useFilterStore = create<FilterState>((set) => ({

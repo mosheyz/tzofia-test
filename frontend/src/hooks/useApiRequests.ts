@@ -22,12 +22,17 @@ export const useCreateAlert = () => {
         },
     });
 };
-export const useUpdateAlert = (id: string) => {
+export const useUpdateAlert = () => {
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
+
     return useMutation({
-        mutationFn: (alert: Partial<Alert>) => alertRequests.update(id, alert),
-        onSuccess: () =>
-            queryClient.invalidateQueries({ queryKey: ["alerts"] }),
+        mutationFn: ({ id, alert }: { id: string; alert: Partial<Alert> }) =>
+            alertRequests.update(id, alert),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["alerts"] });
+            navigate("/");
+        },
     });
 };
 

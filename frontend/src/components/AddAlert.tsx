@@ -30,7 +30,9 @@ const AddAlert = () => {
                     name="displayName"
                     placeholder="Your name"
                     value={displayName}
-                    onChange={(e) => setDisplayName(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setDisplayName(e.target.value)
+                    }
                     required
                 />
                 <input
@@ -38,14 +40,18 @@ const AddAlert = () => {
                     name="description"
                     placeholder="Describe the alert.."
                     value={description}
-                    onChange={(e) => setDescription(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setDescription(e.target.value)
+                    }
                     required
                 />
                 <select
                     name="priority"
                     id="priority"
                     value={priority}
-                    onChange={(e: any) => setPriority(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                        setPriority(e.target.value)
+                    }
                     required
                 >
                     <option value="Low">Low</option>
@@ -57,7 +63,9 @@ const AddAlert = () => {
                     name="arena"
                     id="arena"
                     value={arena}
-                    onChange={(e: any) => setArena(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                        setArena(e.target.value)
+                    }
                     required
                 >
                     <option value="North">North</option>
@@ -68,7 +76,10 @@ const AddAlert = () => {
                     name="status"
                     id="status"
                     value={status}
-                    onChange={(e: any) => setStatus(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                        setStatus(e.target.value)
+                    }
+                    }
                     required
                 >
                     <option value="Active">Active</option>
@@ -81,7 +92,9 @@ const AddAlert = () => {
                     min={-180}
                     max={180}
                     value={lon}
-                    onChange={(e: any) => setLon(Number(e.target.value))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setLon(Number(e.target.value))
+                    }
                     required
                 />
                 <input
@@ -91,7 +104,9 @@ const AddAlert = () => {
                     min={-90}
                     max={90}
                     value={lat}
-                    onChange={(e: any) => setLat(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setLat(Number(e.target.value))
+                    }
                     required
                 />
                 <button type="submit">Send alert</button>

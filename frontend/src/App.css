@@ -1,7 +1,35 @@
 header nav{
   display: flex;
   gap: 10px;
-  
+}
+
+header form {
+  margin-bottom: 40px;
+}
+
+.alerts-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.alerts-container div {
+  flex: 1;
+}
+
+.alerts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 40px;
+}
+
+.alert-row {
+  padding: 15px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid rgb(255, 204, 204);
+  border-radius: 8px;
 }
 
 .counter {

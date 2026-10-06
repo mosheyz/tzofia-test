@@ -5,15 +5,10 @@ import Filter from "./Filter";
 const Header = () => {
     return (
         <header>
-            <nav>
-                <Link to={"/create"}>Create a new alert</Link>
-                <Link to={"/update"}>Update an existing alert</Link>
-                <Link to={"/delete"}>Delete an existing alert</Link>
-                <Link to={"/map-list"}>To see the map-list</Link>
-            </nav>
+            <Link to={"/create"}>Create a new alert</Link>
             <div>
-              <Search />
-              <Filter />
+                <Search />
+                <Filter />
             </div>
         </header>
     );

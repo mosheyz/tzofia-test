@@ -3,8 +3,6 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import CreatePage from "./pages/CreatePage";
 import { UpdatePage } from "./pages/UpdatePage";
-import DeletePage from "./pages/DeletePage";
-import MapListPage from "./pages/MapListPage";
 
 function App() {
     return (
@@ -13,9 +11,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/create" element={<CreatePage />} />
-                    <Route path="/update" element={<UpdatePage />} />
-                    <Route path="/delete" element={<DeletePage />} />
-                    <Route path="/map-list" element={<MapListPage />} />
+                    <Route path="/update/:id" element={<UpdatePage />} />
                 </Routes>
             </BrowserRouter>
         </>

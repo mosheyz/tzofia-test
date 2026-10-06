@@ -19,8 +19,8 @@ export const alertRequests = {
         return res.data.data;
     },
     update: async (id: string, alert: Partial<Alert>) => {
-        alert.lon = Number(alert.lon);
-        alert.lat = Number(alert.lat);
+        if (alert.lon) alert.lon = Number(alert.lon);
+        if (alert.lat) alert.lat = Number(alert.lat);
         const res = await axios.put(`${URL}/${id}`, alert);
         return res.data.data;
     },
