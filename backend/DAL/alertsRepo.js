@@ -24,6 +24,7 @@ export const alertsRepo = {
     },
 
     update: async (alertId, updateData) => {
+        if (updateData._id) delete updateData._id;
         const data = await alerts.findOneAndUpdate(
             { _id: new ObjectId(alertId) },
             { $set: updateData },
