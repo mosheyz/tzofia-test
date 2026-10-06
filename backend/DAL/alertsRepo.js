@@ -6,7 +6,7 @@ const alerts = dbConnection.collection("alerts");
 export const alertsRepo = {
     create: async (data) => {
         const result = await alerts.insertOne(data);
-        return result.insertedId.toString();
+        return {id: result.insertedId.toString(), ...data}
     },
 
     getAll: async () => {
