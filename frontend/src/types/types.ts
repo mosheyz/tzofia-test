@@ -22,4 +22,20 @@ export interface Alert {
     arena: Arena;
     lon: number;
     lat: number;
+    createdAt: string;
+}
+
+export interface CreateUser {
+    username: string;
+    email: string;
+    assignedArena: "North" | "South" | "Center" | "All";
+    role: "admin" | "general_user" | "arena_user";
+    password: string;
+}
+export interface User {
+    id:string;
+    username: string;
+    email: string;
+    assignedArena: "North" | "South" | "Center" | "All";
+    role: "admin" | "general_user" | "arena_user";
 }

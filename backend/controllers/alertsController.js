@@ -6,7 +6,9 @@ export const createAlert = async (req, res) => {
     const data = req.body;
     if (
         req.user.role === "general_user" ||
-        (req.user.role === "arena_user" && data.arena !== user.assignedArena)
+        (req.user.role === "arena_user" &&
+            user.assignedArena !== "All" &&
+            data.arena !== user.assignedArena)
     ) {
         const err = new Error("Not assignable to this arena");
         err.status = 400;
@@ -20,7 +22,7 @@ export const createAlert = async (req, res) => {
 
 export const getAlerts = async (req, res) => {
     let filter = {};
-    if (req.user.role === "arena_user") {
+    if (req.user.role === "arena_user" && user.assignedArena !== "All") {
         filter.arena = req.user.assignedArena;
     }
     const alerts = await alertsRepo.getAll(filter);
@@ -33,6 +35,7 @@ export const getAlertById = async (req, res) => {
     const alert = await checkExistAlert(id);
     if (
         req.user.role === "arena_user" &&
+        user.assignedArena !== "All" &&
         alert.arena !== req.user.assignedArena
     ) {
         const err = new Error("Not assignable to this arena");
@@ -48,7 +51,9 @@ export const deleteAlert = async (req, res) => {
 
     if (
         req.user.role === "general_user" ||
-        (req.user.role === "arena_user" && alert.arena !== user.assignedArena)
+        (req.user.role === "arena_user" &&
+            user.assignedArena !== "All" &&
+            alert.arena !== user.assignedArena)
     ) {
         const err = new Error("Not assignable to this arena");
         err.status = 400;
@@ -66,7 +71,11 @@ export const updateAlert = async (req, res) => {
     const alert = await checkExistAlert(id);
     const data = req.body;
 
-    if (req.user.role === "arena_user" && alert.arena !== user.assignedArena) {
+    if (
+        req.user.role === "arena_user" &&
+        user.assignedArena !== "All" &&
+        alert.arena !== user.assignedArena
+    ) {
         const err = new Error("Not assignable to this arena");
         err.status = 400;
         throw err;

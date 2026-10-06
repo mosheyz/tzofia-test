@@ -1,14 +1,20 @@
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import AlertsMap from "../components/AlertsMap";
 import Header from "../components/Header";
 import { useDeleteAlert, useGetAlerts } from "../hooks/useApiRequests";
 import useFilterStore from "../store/useFilterStore";
 import type { Alert } from "../types/types";
+import useAuthStore from "../store/useAuthStore";
 
 const HomePage = () => {
+    console.log("tghj")
     const { data, isPending, isError, error } = useGetAlerts();
+    console.log(data)
     const { arenaFilter, priorityFilter, search } = useFilterStore();
-    const { mutate: deleteAlert, isPending: isPendingDelete } = useDeleteAlert();
+    const { mutate: deleteAlert, isPending: isPendingDelete } =
+        useDeleteAlert();
+    const { user, token } = useAuthStore();
+    console.log({user, token})
     const navigate = useNavigate();
 
     const alerts = data || [];
@@ -47,8 +53,24 @@ const HomePage = () => {
                             <p>{alert.arena}</p>
                             <p>{alert.priority}</p>
                             <h3>{alert.status}</h3>
-                            <button disabled={isPending || isPendingDelete} onClick={ () => navigate(`/update/${alert.id}`)}>Update</button>
-                            <button disabled={isPending || isPendingDelete} onClick={ () => deleteAlert(alert.id)}>Delete</button>
+                            {user?.role !== "general_user" && (
+                                <div>
+                                    <button
+                                        disabled={isPending || isPendingDelete}
+                                        onClick={() =>
+                                            navigate(`/update/${alert.id}`)
+                                        }
+                                    >
+                                        Update
+                                    </button>
+                                    <button
+                                        disabled={isPending || isPendingDelete}
+                                        onClick={() => deleteAlert(alert.id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>

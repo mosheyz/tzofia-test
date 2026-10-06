@@ -5,6 +5,8 @@ import { generateToken } from "../services/generateToken.js";
 
 export const register = async (req, res) => {
     const data = req.body;
+    console.log(data);
+
     const users = await usersRepo.getAll();
     const isExist = users.find((user) => user.email === data.email);
     if (isExist) {
@@ -42,18 +44,23 @@ export const login = async (req, res) => {
     delete user.password;
 
     const token = generateToken(user);
+    console.log({ user, token });
+
     res.status(200).send(success({ user, token }));
 };
 
 export const getAllUsers = async (req, res) => {
     const users = await usersRepo.getAll();
+    const protectedUsers = users.map((user) => {
+        delete user.password;
+        return user;
+    });
 
-    res.status(200).send(success(users));
+    res.status(200).send(success(protectedUsers));
 };
 
 export const getUserById = async (req, res) => {
-    const { id } = req.params;
-    const user = await usersRepo.getById(id);
+    const user = await usersRepo.getById(req.user.id);
     if (!user) {
         const err = new Error("Incorrect email or password");
         err.status = 404;
@@ -79,3 +86,11 @@ export const deleteUser = async (req, res) => {
         result ? success("deleted successfully") : fail("Something went wrong"),
     );
 };
+
+// await register({body: {username: "moshe",
+//     password: "123456",
+//     email: "moshe@gmail.com",
+//     role: "admin",
+//     assignedArena: "All"}})
+
+// console.log(await login({body:{ password: "123456", email: "moshe@gmail.com" }}));

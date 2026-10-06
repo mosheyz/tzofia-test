@@ -10,6 +10,6 @@ export const router = express.Router()
 router.post("/login", validateSchema(loginSchema), login)
 
 router.get("/me", authMiddleware, getUserById)
-router.get("/users", authMiddleware, getAllUsers)
+router.get("/users", authMiddleware, roleMiddleware("admin"), getAllUsers)
 router.post("/register", authMiddleware, roleMiddleware("admin"), validateSchema(registerSchema), register)
 router.delete("/users/:id", authMiddleware, roleMiddleware("admin"), deleteUser)
